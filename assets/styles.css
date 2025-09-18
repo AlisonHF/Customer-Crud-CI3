@@ -1,0 +1,38 @@
+:root {
+    --primary-color: #333;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#footer {
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+#navbar {
+    background: var(--primary-color);
+    color: white;
+}
+
+#link-create {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
