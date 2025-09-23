@@ -1,20 +1,39 @@
-
 <table border="1" cellpadding="5" class="table mt-3">
-    <tr>
-        <th>ID</th><th>Nome</th><th>Username</th><th>Sobrenome</th><th>Email</th><th>Ações</th>
-    </tr>
-    <?php foreach ($users as $u): ?>
-    <tr>
-        <td><?= $u->id ?></td>
-        <td><?= $u->name ?></td>
-        <td><?= $u->username ?></td>
-        <td><?= $u->lastname ?></td>
-        <td><?= $u->email ?></td>
-        <td>
-            <a href="<?= site_url('userController/edit/'.$u->id) ?>">Editar</a> |
-            <a href="<?= site_url('userController/delete/'.$u->id) ?>" onclick="return confirm('Tem certeza?')">Excluir</a>
-        </td>
-    </tr>
-    <?php endforeach; ?>
+
+    <?php if (isset(($_GET['msg']))): ?>
+        <div class="alert alert-danger mt-3 mb-3" role="alert">
+            <?= $_GET['msg'] ?>
+        </div>
+
+    <?php endif; ?>
+
+    <?php if(empty($clientes)): ?>
+        <h1>Sem registros!</h1>
+    <?php else: ?>
+
+        <tr>
+            <th>ID</th><th>Nome/Razão</th><th>CPF/CNPJ</th><th>Email</th><th>Telefone</th><th>CEP</th><th>Endereço</th><th>Cidade</th><th>UF</th><th>Ações</th>
+        </tr>
+
+        <?php foreach ($clientes as $cliente): ?>
+        <tr>
+            <td><?= $cliente->id ?></td>
+            <td><?= $cliente->nome_razao ?></td>
+            <td><?= $cliente->cpf_cnpj ?></td>
+            <td><?= $cliente->email ?></td>
+            <td><?= $cliente->telefone ?></td>
+            <td><?= $cliente->cep ?></td>
+            <td><?= $cliente->endereco ?></td>
+            <td><?= $cliente->cidade ?></td>
+            <td><?= $cliente->uf ?></td>
+            <td>
+                <a href="<?= site_url('Cliente/update/'.$cliente->id) ?>">Editar</a> |
+                <a href="<?= site_url('Cliente/delete/'.$cliente->id) ?>" onclick="return confirm('Tem certeza?')">Excluir</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+
+    <?php endif; ?>
 </table>
-<a href="UserController/create" id="link-create" class="mt-5">Clique aqui para adicionar um usuário</a>
+
+<a href="/Cliente/insert" class="mt-5">Clique aqui para adicionar um cliente</a>
