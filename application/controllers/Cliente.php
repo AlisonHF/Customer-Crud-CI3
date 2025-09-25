@@ -32,10 +32,60 @@ class Cliente extends CI_Controller {
                 'uf' => $this->input->post('uf'),
             ];
 
-            $this->form_validation->set_rules('nome',
+            $this->form_validation->set_rules(
+                'nome',
                 'Nome',
-                'max_lenght[2]',
-                array('max_lenght' => 'Máximo de caracteres!',
+                'required|min_length[5]|max_length[255]',
+            );
+
+            $this->form_validation->set_rules(
+                'cpf_cnpj',
+                'CPF/CNPJ',
+                'required|min_length[11]|max_length[14]'
+            );
+
+            $this->form_validation->set_rules(
+                'email',
+                'E-mail',
+                'required|valid_email'
+            );
+
+            $this->form_validation->set_rules(
+                'telefone',
+                'Telefone',
+                'min_length[8]|max_length[19]'
+            );
+
+            $this->form_validation->set_rules(
+                'cep',
+                'CEP',
+                'required|exact_length[8]'
+            );
+
+            $this->form_validation->set_rules(
+                'endereco',
+                'Endereço',
+                'required|min_length[10]|max_length[255]'
+            );
+
+            $this->form_validation->set_rules(
+                'cidade',
+                'Cidade',
+                'required|min_length[5]|max_length[100]'
+            );
+
+            $this->form_validation->set_rules(
+                'uf',
+                'UF',
+                'required|exact_length[2]'
+            );
+
+            $this->form_validation->set_message(array(
+                    'min_length' => 'O campo {field} precisa de {param} ou mais caracteres!',
+                    'max_length' => 'O campo {field} recebe o máximo de {param} caracteres!',
+                    'valid_email' => 'Digite um {field} válido!',
+                    'required' => 'O campo {field} é obrigatório!',
+                    'exact_length' => 'O campo {field} precisa ter exatamente {param} caracteres!'
                 )
             );
 

@@ -8,29 +8,29 @@
 <?php endif; ?>
 
 <form method="POST" class="form-control mt-3 mb-5" id="form">
-    <label class="form-label">Nome:</label>
+    <label class="form-label">Nome/Razão:</label>
     <input class="form-control type="text" name="nome" value="<?= isset($cliente) ? $cliente->nome_razao : '' ?>">
 
     <label class="form-label">CPF/CNPJ:</label>
-    <input class="form-control type="text" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : '' ?>" required>
+    <input class="form-control type="text" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : '' ?>" >
     
     <label class="form-label">E-mail</label>
-    <input class="form-control type="email" name="email" value="<?= isset($cliente) ? $cliente->email : '' ?>" required>
+    <input class="form-control type="email" name="email" value="<?= isset($cliente) ? $cliente->email : '' ?>" >
     
     <label class="form-label">Telefone</label>
     <input class="form-control type="number" name="telefone" value="<?= isset($cliente) ? $cliente->telefone : '' ?>">
 
     <label class="form-label">CEP</label>
-    <input class="form-control type="number" id="cep" name="cep" value="<?= isset($cliente) ? $cliente->cep : '' ?>" onblur="buscarCep()" required>
+    <input class="form-control type="number" id="cep" name="cep" value="<?= isset($cliente) ? $cliente->cep : '' ?>" onblur="buscarCep()" >
 
     <label class="form-label">Endereço</label>
-    <input class="form-control type="text" id="endereco" name="endereco" value="<?= isset($cliente) ? $cliente->endereco : '' ?>" required>
+    <input class="form-control type="text" id="endereco" name="endereco" value="<?= isset($cliente) ? $cliente->endereco : '' ?>" >
     
     <label class="form-label">Cidade</label>
-    <input class="form-control type="text" id="cidade" name="cidade" value="<?= isset($cliente) ? $cliente->cidade : '' ?>" required>
+    <input class="form-control type="text" id="cidade" name="cidade" value="<?= isset($cliente) ? $cliente->cidade : '' ?>" >
 
     <label class="form-label">UF</label>
-    <input class="form-control type="text" id="uf" name="uf" value="<?= isset($cliente) ? $cliente->uf : '' ?>" required>
+    <input class="form-control type="text" id="uf" name="uf" value="<?= isset($cliente) ? $cliente->uf : '' ?>" >
 
     <button class="btn btn-success mt-3" type="submit">Salvar</button>
 </form>
