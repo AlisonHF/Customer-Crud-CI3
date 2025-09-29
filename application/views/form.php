@@ -1,36 +1,54 @@
 <h1 class="titulo mt-3"><?= isset($cliente) ? 'Editar Cliente' : 'Novo Cliente' ?></h1>
 
-<?php if (isset(($_GET['msg']))): ?>
-    <div class="alert alert-danger mt-3 mb-3" role="alert">
-        <?= $_GET['msg'] ?>
+<form method="POST" class="form-control mt-3 mb-5" id="form">
+
+    <label class="form-label">Nome/Razão:</label>
+    <input class="form-control type="text" name="nome" value="<?= isset($cliente) ? $cliente->nome_razao : set_value('nome') ?>" maxlength="255">
+    <div class="form-invalid">
+        <?php echo form_error('nome') ?>
     </div>
 
-<?php endif; ?>
-
-<form method="POST" class="form-control mt-3 mb-5" id="form">
-    <label class="form-label">Nome/Razão:</label>
-    <input class="form-control type="text" name="nome" value="<?= isset($cliente) ? $cliente->nome_razao : '' ?>">
-
     <label class="form-label">CPF/CNPJ:</label>
-    <input class="form-control type="text" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : '' ?>" >
-    
+    <input class="form-control type="text" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : set_value('cpf_cnpj') ?>" maxlength="14">
+    <div class="form-invalid">
+        <?php echo form_error('cpf_cnpj') ?>
+    </div>
+
     <label class="form-label">E-mail</label>
-    <input class="form-control type="email" name="email" value="<?= isset($cliente) ? $cliente->email : '' ?>" >
-    
+    <input class="form-control type="email" name="email" value="<?= isset($cliente) ? $cliente->email : set_value('email') ?>" maxlength="255">
+        <div class="form-invalid">
+        <?php echo form_error('email') ?>
+    </div>
+
     <label class="form-label">Telefone</label>
-    <input class="form-control type="number" name="telefone" value="<?= isset($cliente) ? $cliente->telefone : '' ?>">
+    <input class="form-control type="number" name="telefone" value="<?= isset($cliente) ? $cliente->telefone : set_value('telefone') ?>" maxlength="19">
+    <div class="form-invalid">
+        <?php echo form_error('telefone') ?>
+    </div>
 
     <label class="form-label">CEP</label>
-    <input class="form-control type="number" id="cep" name="cep" value="<?= isset($cliente) ? $cliente->cep : '' ?>" onblur="buscarCep()" >
+    <input class="form-control type="number" id="cep" name="cep" value="<?= isset($cliente) ? $cliente->cep : set_value('cep') ?>" onblur="buscarCep()" maxlength="8">
+    <div class="form-invalid" id="cep">
+        <?php echo form_error('cep') ?>
+    </div>
 
     <label class="form-label">Endereço</label>
-    <input class="form-control type="text" id="endereco" name="endereco" value="<?= isset($cliente) ? $cliente->endereco : '' ?>" >
-    
+    <input class="form-control type="text" id="endereco" name="endereco" value="<?= isset($cliente) ? $cliente->endereco : set_value('endereco') ?>" maxlength="255">
+    <div class="form-invalid">
+        <?php echo form_error('endereco') ?>
+    </div>
+
     <label class="form-label">Cidade</label>
-    <input class="form-control type="text" id="cidade" name="cidade" value="<?= isset($cliente) ? $cliente->cidade : '' ?>" >
+    <input class="form-control type="text" id="cidade" name="cidade" value="<?= isset($cliente) ? $cliente->cidade : set_value('cidade') ?>" maxlength="100">
+    <div class="form-invalid">
+        <?php echo form_error('cidade') ?>
+    </div>
 
     <label class="form-label">UF</label>
-    <input class="form-control type="text" id="uf" name="uf" value="<?= isset($cliente) ? $cliente->uf : '' ?>" >
+    <input class="form-control type="text" id="uf" name="uf" value="<?= isset($cliente) ? $cliente->uf : set_value('uf') ?>" maxlength="2">
+    <div class="form-invalid">
+        <?php echo form_error('uf') ?>
+    </div>
 
     <button class="btn btn-success mt-3" type="submit">Salvar</button>
 </form>

@@ -31,4 +31,5 @@ class Cliente_model extends CI_Model {
     {
         return $this->db-get_where('clientes', ['cpf_cnpj' => $cpf_cnpj])->row();
     }
+
 }

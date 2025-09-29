@@ -5,8 +5,17 @@ class Cliente extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model("Cliente_model", "ClienteModel");
+		$this->load->model('Cliente_model', 'ClienteModel');
         $this->load->library('form_validation');
+        $this->form_validation->set_message(array(
+            'min_length' => 'O campo {field} precisa de {param} ou mais caracteres!',
+            'max_length' => 'O campo {field} recebe o máximo de {param} caracteres!',
+            'valid_email' => 'Digite um {field} válido!',
+            'required' => 'O campo {field} é obrigatório!',
+            'exact_length' => 'O campo {field} precisa ter exatamente {param} caracteres!',
+            'is_unique' => 'Esse {field} já foi cadastrado, use outro!'
+            )
+        );
 	}
 
 	public function index()
@@ -31,16 +40,18 @@ class Cliente extends CI_Controller {
                 'cidade' => $this->input->post('cidade'),
                 'uf' => $this->input->post('uf'),
             ];
+
+            $this->form_validation->set_message($this->config->item('error_messages'));
             
             if ($this->form_validation->run() == FALSE)
             {
-                echo validation_errors();
+                $view = $this->load->view('form', '', TRUE);
+                $this->load->view('layouts/main', ['content' => $view]);
             }
             else
             {
                 $this->ClienteModel->insert($data);
-
-                redirect('Cliente');
+                redirect('Cliente?insert=true');
             }
         } 
 
@@ -65,18 +76,16 @@ class Cliente extends CI_Controller {
                 'uf' => $this->input->post('uf'),
             ];
 
-
             if($this->form_validation->run() == FALSE)
             {
-                echo validation_errors();
+                $view = $this->load->view('form', '', TRUE);
+                $this->load->view('layouts/main', ['content' => $view]);
             }
             else
             {
                 $this->ClienteModel->update($id, $data);
-
-			    redirect('Cliente');
+			    redirect('Cliente?update=true');
             }
-			
         }
 
 		else 

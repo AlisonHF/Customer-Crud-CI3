@@ -12,7 +12,7 @@ $config = array(
         array(
             'field' => 'cpf_cnpj',
             'label' => 'CPF/CNPJ',
-            'rules' => 'required|min_length[11]|max_length[14]'
+            'rules' => 'required|min_length[11]|max_length[14]|is_unique[clientes.cpf_cnpj]'
         ),
 
         array(
@@ -102,13 +102,4 @@ $config = array(
             'rules' => 'required|exact_length[2]'
         ),
     )
-);
-
-$config['error_messages'] = array(
-    'min_length' => 'O campo {field} precisa de {param} ou mais caracteres!',
-    'max_length' => 'O campo {field} recebe o máximo de {param} caracteres!',
-    'valid_email' => 'Digite um {field} válido!',
-    'required' => 'O campo {field} é obrigatório!',
-    'exact_length' => 'O campo {field} precisa ter exatamente {param} caracteres!',
-    'is_unique' => 'Esse e-mail já foi cadastrado, use outro!'
 );

@@ -1,8 +1,13 @@
 <table border="1" cellpadding="5" class="table mt-3">
 
-    <?php if (isset(($_GET['msg']))): ?>
-        <div class="alert alert-danger mt-3 mb-3" role="alert">
-            <?= $_GET['msg'] ?>
+    <?php if (isset(($_GET['update'])) && $_GET['update'] == 'true'): ?>
+        <div class="alert alert-success mt-3 mb-3 text-center" role="alert">
+            Registro atualizado com sucesso!
+        </div>
+
+    <?php elseif(isset(($_GET['insert'])) && $_GET['insert'] == 'true'): ?>
+        <div class="alert alert-success mt-3 mb-3 text-center" role="alert">
+            Registro incluído com sucesso!
         </div>
 
     <?php endif; ?>
