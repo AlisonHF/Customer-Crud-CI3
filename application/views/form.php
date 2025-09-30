@@ -12,6 +12,10 @@
     <input class="form-control type="text" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : set_value('cpf_cnpj') ?>" maxlength="14">
     <div class="form-invalid">
         <?php echo form_error('cpf_cnpj') ?>
+        <?php if(isset($data['error_cpf_cnpj'])){
+            echo $data['error_cpf_cnpj'];
+        }
+        ?>
     </div>
 
     <label class="form-label">E-mail</label>

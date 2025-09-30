@@ -13,7 +13,7 @@ class Cliente extends CI_Controller {
             'valid_email' => 'Digite um {field} válido!',
             'required' => 'O campo {field} é obrigatório!',
             'exact_length' => 'O campo {field} precisa ter exatamente {param} caracteres!',
-            'is_unique' => 'Esse {field} já foi cadastrado, use outro!'
+            'is_unique' => 'Esse {field} já foi cadastrado, use outro!',
             )
         );
 	}
@@ -76,6 +76,21 @@ class Cliente extends CI_Controller {
                 'uf' => $this->input->post('uf'),
             ];
 
+            
+            $search_cpf_cnpj = $this->ClienteModel->get_by_cpf_cnpj($data['cpf_cnpj']);
+            $duplicated_cpf_cnpj = false;
+
+            if (!empty($search_cpf_cnpj))
+            {
+                foreach($search_cpf_cnpj as $c)
+                {
+                    if($c['id'] != $id)
+                    {
+                        $duplicated_cpf_cnpj = true;
+                    }
+                };
+            }
+
             if($this->form_validation->run() == FALSE)
             {
                 $view = $this->load->view('form', '', TRUE);
@@ -101,4 +116,9 @@ class Cliente extends CI_Controller {
         $this->ClienteModel->delete($id);
         redirect('Cliente');
 	}
+
+    public function _always_false()
+    {
+        return false;
+    }
 }
