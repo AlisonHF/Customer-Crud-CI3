@@ -63,7 +63,7 @@ $config = array(
         array(
             'field' => 'cpf_cnpj',
             'label' => 'CPF/CNPJ',
-            'rules' => 'required|min_length[11]|max_length[14]'
+            'rules' => 'required|min_length[11]|max_length[14]|callback_check_cpf_cnpj_update'
         ),
 
         array(

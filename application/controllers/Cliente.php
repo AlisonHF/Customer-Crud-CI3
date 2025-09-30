@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cliente extends CI_Controller {
 
-	public function __construct() {
+	public function __construct()
+    {
 		parent::__construct();
 		$this->load->model('Cliente_model', 'ClienteModel');
         $this->load->library('form_validation');
@@ -25,7 +26,7 @@ class Cliente extends CI_Controller {
         $this->load->view('layouts/main', ['content' => $view, 'title' => 'Lista de Clientes']);
 	}
 
-	public function insert(): void
+	public function insert()
 	{
 		if ($this->input->post())
 		{
@@ -41,18 +42,14 @@ class Cliente extends CI_Controller {
                 'uf' => $this->input->post('uf'),
             ];
 
-            $this->form_validation->set_message($this->config->item('error_messages'));
-            
-            if ($this->form_validation->run() == FALSE)
-            {
-                $view = $this->load->view('form', '', TRUE);
-                $this->load->view('layouts/main', ['content' => $view]);
-            }
-            else
+            if ($this->form_validation->run() !== FALSE)
             {
                 $this->ClienteModel->insert($data);
-                redirect('Cliente?insert=true');
+                return redirect('Cliente?insert=true');
             }
+
+            $view = $this->load->view('form', '', TRUE);
+            $this->load->view('layouts/main', ['content' => $view]);
         } 
 
 		else
@@ -61,10 +58,13 @@ class Cliente extends CI_Controller {
 			$this->load->view('layouts/main', ['content' => $view, 'title' => 'form cliente']);
 		}
 	}
-	public function update($id) {
+
+	public function update($id)
+    {
+        $this->id_update = $id;
+
         if ($this->input->post())
 		{
-
             $data = [
                 'nome_razao' => $this->input->post('nome'),
                 'cpf_cnpj' => $this->input->post('cpf_cnpj'),
@@ -75,50 +75,44 @@ class Cliente extends CI_Controller {
                 'cidade' => $this->input->post('cidade'),
                 'uf' => $this->input->post('uf'),
             ];
-
             
             $search_cpf_cnpj = $this->ClienteModel->get_by_cpf_cnpj($data['cpf_cnpj']);
-            $duplicated_cpf_cnpj = false;
 
-            if (!empty($search_cpf_cnpj))
+            if($this->form_validation->run() !== FALSE)
             {
-                foreach($search_cpf_cnpj as $c)
-                {
-                    if($c['id'] != $id)
-                    {
-                        $duplicated_cpf_cnpj = true;
-                    }
-                };
+                $this->ClienteModel->update($this->id_update, $data);
+                return redirect('Cliente?update=true');
             }
-
-            if($this->form_validation->run() == FALSE)
-            {
-                $view = $this->load->view('form', '', TRUE);
-                $this->load->view('layouts/main', ['content' => $view]);
-            }
-            else
-            {
-                $this->ClienteModel->update($id, $data);
-			    redirect('Cliente?update=true');
-            }
-        }
-
-		else 
-		{
-            $data['cliente'] = $this->ClienteModel->get_by_id($id);
+            
+            $data['cliente'] = $this->ClienteModel->get_by_id($this->id_update);
             $view = $this->load->view('form', $data, TRUE);
-            $this->load->view('layouts/main', ['content' => $view, 'title' => 'Editar usuário']);
+            $this->load->view('layouts/main', ['content' => $view, 'cliente' => $this->ClienteModel->get_by_id($this->id_update)]);
         }
+
+        $data['cliente'] = $this->ClienteModel->get_by_id($this->id_update);
+        $view = $this->load->view('form', $data, TRUE);
+        $this->load->view('layouts/main', ['content' => $view, 'title' => 'Editar usuário']);
     }
 
     public function delete($id) 
 	{
         $this->ClienteModel->delete($id);
-        redirect('Cliente');
+        redirect('Cliente?delete=true');
 	}
 
-    public function _always_false()
+    public function check_cpf_cnpj_update($value)
     {
-        return false;
+        $id = $this->id_update;
+        
+        $search_cpf_cnpj = $this->ClienteModel->get_by_cpf_cnpj($value);
+
+        foreach ($search_cpf_cnpj as $c) {
+            if ($c['id'] != $id) {
+                $this->form_validation->set_message('check_cpf_cnpj_update', 'CPF/CNPJ já está em uso!');
+                return false;
+            }
+        }
+
+        return true;
     }
 }

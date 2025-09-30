@@ -10,6 +10,11 @@
             Registro incluído com sucesso!
         </div>
 
+    <?php elseif(isset(($_GET['delete'])) && $_GET['delete'] == 'true'): ?>
+        <div class="alert alert-success mt-3 mb-3 text-center" role="alert">
+            Registro excluído com sucesso!
+        </div>
+
     <?php endif; ?>
 
     <?php if(empty($clientes)): ?>
