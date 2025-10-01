@@ -31,20 +31,20 @@ main {
     color: white;
 }
 
-#link-create {
-    text-decoration: none;
+#link-list {
     display: block;
-    text-align: center;
 }
 
-.titulo {
+.title {
     text-align: center;
+    margin: 20px 0px;
 }
 
 #form {
     width: 550px;
     padding: 50px;
-    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
 }
 
 .form-invalid {
@@ -52,4 +52,16 @@ main {
     color: #FF0000;
     text-align: center;
     border-radius: 5px;
+}
+
+.btn-action {
+    margin: 0.1rem 0.1rem;
+    border: 0px;
+    height: 2rem;
+    font-size: 15px;
+    text-align: center;
+}
+
+.btn-add-cliente {
+    display:inline-block;
 }

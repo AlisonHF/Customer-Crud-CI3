@@ -1,4 +1,4 @@
-<h1 class="titulo mt-3"><?= isset($cliente) ? 'Editar Cliente' : 'Novo Cliente' ?></h1>
+<h1 class="title mt-3"><?= isset($cliente) ? 'Editar Cliente' : 'Novo Cliente' ?></h1>
 
 <form method="POST" class="form-control mt-3 mb-5" id="form">
 
@@ -57,4 +57,4 @@
     <button class="btn btn-success mt-3" type="submit">Salvar</button>
 </form>
 
-<a href="/Cliente" class="mt-5 mb-5" id="link-create">Voltar a listagem</a>
+<a href="/Cliente" class="mt-3 mb-3 btn btn-primary" id="link-list">Voltar a listagem</a>
