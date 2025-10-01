@@ -32,10 +32,10 @@
         <tr>
             <td><?= $cliente->id ?></td>
             <td><?= $cliente->nome_razao ?></td>
-            <td><?= $cliente->cpf_cnpj ?></td>
+            <td><?= format_cpf_cnpj($cliente->cpf_cnpj) ?></td>
             <td><?= $cliente->email ?></td>
-            <td><?= $cliente->telefone ?></td>
-            <td><?= $cliente->cep ?></td>
+            <td><?= format_telefone($cliente->telefone) ?></td>
+            <td><?= format_cep($cliente->cep) ?></td>
             <td><?= $cliente->endereco ?></td>
             <td><?= $cliente->cidade ?></td>
             <td><?= $cliente->uf ?></td>

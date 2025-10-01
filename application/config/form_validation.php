@@ -69,7 +69,7 @@ $config = array(
         array(
             'field' => 'email',
             'label' => 'E-mail',
-            'rules' => 'required|valid_email'
+            'rules' => 'required|valid_email|callback_check_email'
         ),
 
         array(

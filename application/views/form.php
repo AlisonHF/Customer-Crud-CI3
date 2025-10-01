@@ -48,6 +48,7 @@
         <?php echo form_error('cidade') ?>
     </div>
 
+
     <label class="form-label">UF</label>
     <input class="form-control type="text" id="uf" name="uf" value="<?= isset($cliente) ? $cliente->uf : set_value('uf') ?>" maxlength="2">
     <div class="form-invalid">

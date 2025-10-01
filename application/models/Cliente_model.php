@@ -32,4 +32,9 @@ class Cliente_model extends CI_Model {
         return $this->db->get_where('clientes', ['cpf_cnpj' => $cpf_cnpj])->result_array();
     }
 
+    public function get_by_email($email)
+    {
+        return $this->db->get_where('clientes', ['email' => $email])->result_array();
+    }
+
 }

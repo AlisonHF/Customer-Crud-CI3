@@ -21,8 +21,11 @@ class Cliente extends CI_Controller {
 
 	public function index()
 	{
+        $this->load->helper(['format_cep', 'format_telefone', 'format_cpf_cnpj']);
+
 		$data['clientes'] = $this->ClienteModel->get();
         $view = $this->load->view('list', $data, TRUE);
+
         $this->load->view('layouts/main', ['content' => $view, 'title' => 'Lista de Clientes']);
 	}
 
@@ -32,19 +35,20 @@ class Cliente extends CI_Controller {
 		{
 			
             $data = [
-                'nome_razao' => $this->input->post('nome'),
-                'cpf_cnpj' => $this->input->post('cpf_cnpj'),
-                'email' => $this->input->post('email'),
-                'telefone' => $this->input->post('telefone'),
-                'cep' => $this->input->post('cep'),
-                'endereco' => $this->input->post('endereco'),
-                'cidade' => $this->input->post('cidade'),
-                'uf' => $this->input->post('uf'),
+                'nome_razao' => trim(ucfirst($this->input->post('nome'))),
+                'cpf_cnpj' => trim($this->input->post('cpf_cnpj')),
+                'email' => trim($this->input->post('email')),
+                'telefone' => trim($this->input->post('telefone')),
+                'cep' => trim($this->input->post('cep')),
+                'endereco' => trim(ucfirst($this->input->post('endereco'))),
+                'cidade' => trim(ucfirst($this->input->post('cidade'))),
+                'uf' => trim($this->input->post('uf')),
             ];
 
             if ($this->form_validation->run() !== FALSE)
             {
                 $this->ClienteModel->insert($data);
+
                 return redirect('Cliente?insert=true');
             }
 
@@ -66,14 +70,14 @@ class Cliente extends CI_Controller {
         if ($this->input->post())
 		{
             $data = [
-                'nome_razao' => $this->input->post('nome'),
-                'cpf_cnpj' => $this->input->post('cpf_cnpj'),
-                'email' => $this->input->post('email'),
-                'telefone' => $this->input->post('telefone'),
-                'cep' => $this->input->post('cep'),
-                'endereco' => $this->input->post('endereco'),
-                'cidade' => $this->input->post('cidade'),
-                'uf' => $this->input->post('uf'),
+                'nome_razao' => trim(ucfirst($this->input->post('nome'))),
+                'cpf_cnpj' => trim($this->input->post('cpf_cnpj')),
+                'email' => trim($this->input->post('email')),
+                'telefone' => trim($this->input->post('telefone')),
+                'cep' => trim($this->input->post('cep')),
+                'endereco' => trim(ucfirst($this->input->post('endereco'))),
+                'cidade' => trim(ucfirst($this->input->post('cidade'))),
+                'uf' => trim($this->input->post('uf'))
             ];
             
             $search_cpf_cnpj = $this->ClienteModel->get_by_cpf_cnpj($data['cpf_cnpj']);
@@ -85,11 +89,13 @@ class Cliente extends CI_Controller {
             }
             
             $data['cliente'] = $this->ClienteModel->get_by_id($this->id_update);
+
             $view = $this->load->view('form', $data, TRUE);
             $this->load->view('layouts/main', ['content' => $view, 'cliente' => $this->ClienteModel->get_by_id($this->id_update)]);
         }
 
         $data['cliente'] = $this->ClienteModel->get_by_id($this->id_update);
+
         $view = $this->load->view('form', $data, TRUE);
         $this->load->view('layouts/main', ['content' => $view, 'title' => 'Editar usuário']);
     }
@@ -97,8 +103,11 @@ class Cliente extends CI_Controller {
     public function delete($id) 
 	{
         $this->ClienteModel->delete($id);
+
         redirect('Cliente?delete=true');
 	}
+
+    // Rules 
 
     public function check_cpf_cnpj_update($value)
     {
@@ -109,6 +118,24 @@ class Cliente extends CI_Controller {
         foreach ($search_cpf_cnpj as $c) {
             if ($c['id'] != $id) {
                 $this->form_validation->set_message('check_cpf_cnpj_update', 'CPF/CNPJ já está em uso!');
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function check_email($email)
+    {
+        $id = $this->id_update;
+
+        $search_email = $this->ClienteModel->get_by_email($email);
+
+        foreach($search_email as $e)
+        {
+            if ($e['id'] != $id)
+            {
+                $this->form_validation->set_message('check_email', 'Esse E-mail já foi cadastrado, use outro!');
                 return false;
             }
         }
