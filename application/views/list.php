@@ -17,12 +17,25 @@
 
 <h1 class="title">Listagem de clientes</h1>
 
-<a href="/Cliente/insert" class="btn btn-primary mt-5 btn-add-cliente"><i class="bi bi-person-add"></i> Adicionar cliente</a>
+<a href="<?=base_url('Cliente/insert')?>" class="btn btn-primary btn-add-cliente"><i class="bi bi-person-add"></i> Adicionar cliente</a>
 
-<table border="1" cellpadding="5" class="table table-bordered table-hover mt-3">
+<table border="1" cellpadding="5" class="table table-bordered table-dark table-hover mt-3">
     <?php if(empty($clientes)): ?>
         <h1>Sem registros!</h1>
     <?php else: ?>
+
+        <colgroup>
+            <col style="width:2%">
+            <col style="width:15%">
+            <col style="width:10%">
+            <col style="width:15%">
+            <col style="width:10%">
+            <col style="width:8%">
+            <col style="width:25%">
+            <col style="width:8%">
+            <col style="width:2%">
+            <col style="width:5%">
+        </colgroup>
 
         <tr class="text-center">
             <th>ID</th><th>Nome/Razão</th><th>CPF/CNPJ</th><th>Email</th><th>Telefone</th><th>CEP</th><th>Endereço</th><th>Cidade</th><th>UF</th><th>Ações</th>
@@ -48,3 +61,7 @@
 
     <?php endif; ?>
 </table>
+
+<div class="pagination-div">
+    <?= $links ?>
+</div>

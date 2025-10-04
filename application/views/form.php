@@ -1,6 +1,6 @@
 <h1 class="title mt-3"><?= isset($cliente) ? 'Editar Cliente' : 'Novo Cliente' ?></h1>
 
-<form method="POST" class="form-control mt-3 mb-5" id="form">
+<form method="POST" class="form-control bg-dark mt-3 mb-5" id="form" data-bs-theme="dark">
 
     <label class="form-label">Nome/Razão:</label>
     <input class="form-control type="text" name="nome" value="<?= isset($cliente) ? $cliente->nome_razao : set_value('nome') ?>" maxlength="255">

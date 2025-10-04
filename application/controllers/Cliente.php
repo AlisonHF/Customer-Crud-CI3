@@ -5,9 +5,9 @@ class Cliente extends CI_Controller {
 
 	public function __construct()
     {
-		parent::__construct();
-		$this->load->model('Cliente_model', 'ClienteModel');
+        parent::__construct();
         $this->load->library('form_validation');
+		$this->load->model('Cliente_model', 'ClienteModel');
         $this->form_validation->set_message(array(
             'min_length' => 'O campo {field} precisa de {param} ou mais caracteres!',
             'max_length' => 'O campo {field} recebe o máximo de {param} caracteres!',
@@ -21,9 +21,33 @@ class Cliente extends CI_Controller {
 
 	public function index()
 	{
+        $this->load->library('pagination');
         $this->load->helper(['format_cep', 'format_telefone', 'format_cpf_cnpj']);
 
-		$data['clientes'] = $this->ClienteModel->get();
+        $config['base_url'] = site_url('cliente/index');
+        $config['total_rows'] = $this->ClienteModel->count_all();
+        $config['per_page'] = 5;
+        $config['uri_segment'] = 3;
+
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = 'Primeiro';
+        $config['last_link'] = 'Último';
+        $config['next_link'] = 'Próximo';
+        $config['prev_link'] = 'Anterior';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+		$data['clientes'] = $this->ClienteModel->get_limit($config['per_page'], $page);
+
+        $data['links'] = $this->pagination->create_links();
+
         $view = $this->load->view('list', $data, TRUE);
 
         $this->load->view('layouts/main', ['content' => $view, 'title' => 'Lista de Clientes']);
@@ -94,10 +118,15 @@ class Cliente extends CI_Controller {
             $this->load->view('layouts/main', ['content' => $view, 'cliente' => $this->ClienteModel->get_by_id($this->id_update)]);
         }
 
-        $data['cliente'] = $this->ClienteModel->get_by_id($this->id_update);
+        else
+        {
+            $data['cliente'] = $this->ClienteModel->get_by_id($this->id_update);
 
-        $view = $this->load->view('form', $data, TRUE);
-        $this->load->view('layouts/main', ['content' => $view, 'title' => 'Editar usuário']);
+            $view = $this->load->view('form', $data, TRUE);
+            $this->load->view('layouts/main', ['content' => $view, 'title' => 'Editar usuário']);
+        }
+
+        
     }
 
     public function delete($id) 

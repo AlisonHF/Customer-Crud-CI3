@@ -37,4 +37,13 @@ class Cliente_model extends CI_Model {
         return $this->db->get_where('clientes', ['email' => $email])->result_array();
     }
 
+    public function count_all()
+    {
+        return $this->db->count_all('clientes');
+    }
+
+    public function get_limit($limit, $offset=0)
+    {
+        return $this->db->get('clientes', $limit, $offset)->result();
+    }
 }
