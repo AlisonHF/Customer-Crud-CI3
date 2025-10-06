@@ -32,7 +32,7 @@
 
     <label class="form-label">CEP</label>
     <input class="form-control type="number" id="cep" name="cep" value="<?= isset($cliente) ? $cliente->cep : set_value('cep') ?>" onblur="buscarCep()" maxlength="8">
-    <div class="form-invalid" id="cep">
+    <div class="form-invalid" id="div-cep">
         <?php echo form_error('cep') ?>
     </div>
 
@@ -59,3 +59,7 @@
 </form>
 
 <a href="/Cliente" class="mt-3 mb-3 btn btn-primary" id="link-list">Voltar a listagem</a>
+
+<script>
+    //buscaCnpj('17467171000128');
+</script>
