@@ -12,7 +12,7 @@ $config = array(
         array(
             'field' => 'cpf_cnpj',
             'label' => 'CPF/CNPJ',
-            'rules' => 'required|min_length[11]|max_length[14]|is_unique[clientes.cpf_cnpj]'
+            'rules' => 'required|is_unique[clientes.cpf_cnpj]|callback_check_length_cpf_cnpj'
         ),
 
         array(
@@ -42,13 +42,13 @@ $config = array(
         array(
             'field' => 'cidade',
             'label' => 'Cidade',
-            'rules' => 'required|min_length[5]|max_length[100]'
+            'rules' => 'required|min_length[5]|max_length[100]|alpha'
         ),
 
         array(
             'field' => 'uf',
             'label' => 'UF',
-            'rules' => 'required|exact_length[2]'
+            'rules' => 'required|exact_length[2]|alpha'
         ),       
     ),
 
@@ -63,7 +63,7 @@ $config = array(
         array(
             'field' => 'cpf_cnpj',
             'label' => 'CPF/CNPJ',
-            'rules' => 'required|min_length[11]|max_length[14]|callback_check_cpf_cnpj_update'
+            'rules' => 'required|min_length[11]|max_length[18]|callback_check_cpf_cnpj_update|callback_check_length_cpf_cnpj'
         ),
 
         array(
@@ -93,13 +93,13 @@ $config = array(
         array(
             'field' => 'cidade',
             'label' => 'Cidade',
-            'rules' => 'required|min_length[5]|max_length[100]'
+            'rules' => 'required|min_length[5]|max_length[100]|alpha'
         ),
 
         array(
             'field' => 'uf',
             'label' => 'UF',
-            'rules' => 'required|exact_length[2]'
+            'rules' => 'required|exact_length[2]|alpha'
         ),
     )
 );

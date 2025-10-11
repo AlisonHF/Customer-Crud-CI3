@@ -1,7 +1,7 @@
 function searchCep() {
 	// Variaveis
 	let cepInput = $("#cep").val();
-	cepInput = cepInput.trim();
+	cepInput = cepInput.trim().replaceAll("-", "");
 
 	let enderecoInput = $("#endereco");
 	let cidadeInput = $("#cidade");
@@ -32,7 +32,6 @@ function searchCep() {
 
 				return null;
 			}
-
 			return response.json();
 		})
 		.then((data) => {
@@ -41,7 +40,6 @@ function searchCep() {
 
 				return null;
 			}
-
 			let endereco = data.logradouro + ", " + data.bairro;
 
 			enderecoInput.val(endereco);
@@ -54,8 +52,10 @@ function searchCep() {
 }
 
 function searchCnpj() {
-	let cnpjInput = $("#cpf_cnpj").val();
-	cnpjInput.trim();
+	let cnpjInput = $("#cpf_cnpj")
+		.val()
+		.replaceAll(/[.\-\/\s]/g, "")
+		.trim();
 
 	let resultDiv = $("#div-error-cnpj");
 	resultDiv.html("");
@@ -78,24 +78,54 @@ function searchCnpj() {
 						"Não foi possível buscar o CNPJ, digite os dados manualmente!"
 					);
 				}
-
 				return null;
 			}
-
 			return response.json(); // Retorna os dados caso o CNPJ for válido
 		})
 		.then((data) => {
 			if (!data) {
 				return null;
 			}
-
 			// Caso os dados sejam válidos
-
 			razaoSocialInput.val(data.razao_social);
 			telefoneInput.val(data.ddd_telefone_1);
+			console.log(data);
 		})
 		.catch((error) => {
 			// Caso for encontrado algum erro
 			console.error("Erro na requisição, status: ", error);
 		});
+}
+
+// Realizar a exclusão das máscaras ao enviar o formulário
+function applyMasks() {
+	$("#telefone").mask("(00) 00000-0000");
+	$("#cep").mask("00000-000");
+
+	let options = {
+		onKeyPress: function (cpf_cnpj, e, field, options) {
+			let masks = ["000.000.000-009", "00.000.000/0000-00"];
+			let mask = cpf_cnpj.length > 14 ? masks[1] : masks[0];
+			field.mask(mask, options);
+		},
+	};
+
+	$("#cpf_cnpj").mask("000.000.000-009", options);
+
+	$("#cpf_cnpj").on("paste", function () {
+		var input = $(this);
+		setTimeout(function () {
+			input.trigger("input"); // força atualização da máscara
+		}, 100);
+	});
+}
+
+function removeMasks() {
+	$(document).ready(() => {
+		$("#form").submit(() => {
+			$("#cpf_cnpj").val($("#cpf_cnpj").cleanVal());
+			$("#telefone").val($("#telefone").cleanVal());
+			$("#cep").val($("#cep").cleanVal());
+		});
+	});
 }

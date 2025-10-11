@@ -15,6 +15,7 @@ class Cliente extends CI_Controller {
             'required' => 'O campo {field} é obrigatório!',
             'exact_length' => 'O campo {field} precisa ter exatamente {param} caracteres!',
             'is_unique' => 'Esse {field} já foi cadastrado, use outro!',
+            'alpha' => 'Esse campo só aceita letras!',
             )
         );
 	}
@@ -62,8 +63,8 @@ class Cliente extends CI_Controller {
                 'nome_razao' => trim(ucfirst($this->input->post('nome'))),
                 'cpf_cnpj' => trim($this->input->post('cpf_cnpj')),
                 'email' => trim($this->input->post('email')),
-                'telefone' => trim($this->input->post('telefone')),
-                'cep' => trim($this->input->post('cep')),
+                'telefone' => str_replace(['(', ')', '-'], '', trim($this->input->post('telefone'))),
+                'cep' => str_replace('-', '', trim($this->input->post('cep'))),
                 'endereco' => trim(ucfirst($this->input->post('endereco'))),
                 'cidade' => trim(ucfirst($this->input->post('cidade'))),
                 'uf' => trim($this->input->post('uf')),
@@ -97,8 +98,8 @@ class Cliente extends CI_Controller {
                 'nome_razao' => trim(ucfirst($this->input->post('nome'))),
                 'cpf_cnpj' => trim($this->input->post('cpf_cnpj')),
                 'email' => trim($this->input->post('email')),
-                'telefone' => trim($this->input->post('telefone')),
-                'cep' => trim($this->input->post('cep')),
+                'telefone' => str_replace(['(', ')', '-'], '', trim($this->input->post('telefone'))),
+                'cep' => str_replace('-', '', trim($this->input->post('cep'))),
                 'endereco' => trim(ucfirst($this->input->post('endereco'))),
                 'cidade' => trim(ucfirst($this->input->post('cidade'))),
                 'uf' => trim($this->input->post('uf'))
@@ -170,5 +171,16 @@ class Cliente extends CI_Controller {
         }
 
         return true;
+    }
+
+    public function check_length_cpf_cnpj($cpf_cnpj)
+    {
+        if (strlen($cpf_cnpj) === 11 || strlen($cpf_cnpj) === 14)
+        {
+            return true;
+        }
+        
+        $this->form_validation->set_message('check_length_cpf_cnpj', 'O campo deve conter 11 ou 14 caracteres!');
+        return false;
     }
 }
