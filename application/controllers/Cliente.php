@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Controller cliente
+ */
 class Cliente extends CI_Controller {
 
 	public function __construct()
@@ -20,16 +23,21 @@ class Cliente extends CI_Controller {
         );
 	}
 
+    /**
+     * Página inicial
+     */
 	public function index()
 	{
         $this->load->library('pagination');
         $this->load->helper(['format_cep', 'format_telefone', 'format_cpf_cnpj']);
 
+        /**
+         * Configurações do helper Pagination
+         */
         $config['base_url'] = site_url('cliente/index');
         $config['total_rows'] = $this->ClienteModel->count_all();
         $config['per_page'] = 5;
         $config['uri_segment'] = 3;
-
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
         $config['first_link'] = 'Primeiro';
@@ -54,6 +62,9 @@ class Cliente extends CI_Controller {
         $this->load->view('layouts/main', ['content' => $view, 'title' => 'Lista de Clientes']);
 	}
 
+    /**
+     * Página de inserção de clientes
+     */
 	public function insert()
 	{
 		if ($this->input->post())
@@ -88,7 +99,10 @@ class Cliente extends CI_Controller {
 		}
 	}
 
-	public function update($id)
+    /**
+     * Página de edição
+     */
+	public function update(int $id)
     {
         $this->id_update = $id;
 
@@ -126,24 +140,28 @@ class Cliente extends CI_Controller {
             $view = $this->load->view('form', $data, TRUE);
             $this->load->view('layouts/main', ['content' => $view, 'title' => 'Editar usuário']);
         }
-
-        
     }
 
-    public function delete($id) 
+    /**
+     * Página de exclusão
+     */
+    public function delete(int $id) : mixed
 	{
         $this->ClienteModel->delete($id);
 
         redirect('Cliente?delete=true');
 	}
 
-    // Rules 
-
-    public function check_cpf_cnpj_update($value)
+    /**
+     * Função de callback para checagem do CPF/CNPJ ao editar um cadastro
+     * @param string $cpf_cnpj Recebe o CPF/CNPJ digitado
+     * @return bool
+     */
+    public function check_cpf_cnpj_update(string $cpf_cnpj) : bool
     {
         $id = $this->id_update;
         
-        $search_cpf_cnpj = $this->ClienteModel->get_by_cpf_cnpj($value);
+        $search_cpf_cnpj = $this->ClienteModel->get_by_cpf_cnpj($cpf_cnpj);
 
         foreach ($search_cpf_cnpj as $c) {
             if ($c['id'] != $id) {
@@ -151,11 +169,15 @@ class Cliente extends CI_Controller {
                 return false;
             }
         }
-
         return true;
     }
 
-    public function check_email($email)
+    /**
+     * Função de callback para checar se o e-mail já foi usado ao editar um cadastro
+     * @param string $email Recebe o e-mail do usuário
+     * @return bool
+     */
+    public function check_email(string $email) : bool
     {
         $id = $this->id_update;
 
@@ -169,11 +191,15 @@ class Cliente extends CI_Controller {
                 return false;
             }
         }
-
         return true;
     }
 
-    public function check_length_cpf_cnpj($cpf_cnpj)
+    /**
+     * Função de callback que verifica se o tamanho da string recebida corresponde a um CPF ou CNPJ
+     * @param string $cpf_cnpj Recebe a string
+     * @return bool
+     */
+    public function check_length_cpf_cnpj(string $cpf_cnpj) : bool
     {
         if (strlen($cpf_cnpj) === 11 || strlen($cpf_cnpj) === 14)
         {

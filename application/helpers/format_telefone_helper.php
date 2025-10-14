@@ -1,6 +1,11 @@
 <?php
 
-function format_telefone($telefone)
+/**
+ * Helper para formatar o telefone ao exibir na listagem
+ * @param string $telefone telefone recebido
+ * @return string Formatado
+ */
+function format_telefone(string $telefone)
 {
     if (empty($telefone)){
         return '';

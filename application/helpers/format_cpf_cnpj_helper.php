@@ -1,6 +1,11 @@
 <?php
 
-function format_cpf_cnpj($cpf_cnpj)
+/**
+ * Helper para formatar o CPF/CNPJ ao exibir na listagem
+ * @param string $cpf_cnpj CPF/CNPJ recebido
+ * @return string Formatado
+ */
+function format_cpf_cnpj(string $cpf_cnpj)
 {
     if (strlen($cpf_cnpj) === 11)
     {
@@ -19,5 +24,3 @@ function format_cpf_cnpj($cpf_cnpj)
     return $formatted_cpf_cnpj;
 
 }
-
-?>
