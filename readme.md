@@ -23,7 +23,7 @@ Projeto desenvolvido para aplicação dos meus conhecimentos referente ao framew
   <li>Inicie o XAMPP e ative o módulo APACHE e MYSQL</li>
   <li>Configure o PHP no PATH do sistema caso não esteja configurado</li>
   <li>Vá até a pasta public pelo terminal e aplique o comando: <pre>php -S localhost:8080</pre></li>
-	<li>Configure o arquivo config.php com o seu banco de dados</li>
+	<li>Configure o arquivo application/config.php com o seu banco de dados</li>
 	<li>Acesse: localhost:8080/migration para criar as tabelas necessárias</li>
   <li>Abra o navegador e acesse: localhost:8080</li>
 </ul>
