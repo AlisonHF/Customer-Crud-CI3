@@ -1,4 +1,4 @@
-/* General */
+/* Geral */
 
 :root {
 	--primary-color: #333;
@@ -30,7 +30,7 @@ main {
 	margin-bottom: 2rem;
 }
 
-/* Main */
+/* Página principal */
 
 #footer {
 	background: var(--primary-color);
@@ -44,7 +44,7 @@ main {
 	color: white;
 }
 
-/* Form */
+/* Formulário */
 
 #link-list {
 	display: block;
@@ -64,7 +64,7 @@ main {
 	border-radius: 5px;
 }
 
-/* List */
+/* Listagem */
 
 .btn-action {
 	width: 4rem;

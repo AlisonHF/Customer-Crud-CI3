@@ -18,7 +18,6 @@ class Cliente extends CI_Controller {
             'required' => 'O campo {field} é obrigatório!',
             'exact_length' => 'O campo {field} precisa ter exatamente {param} caracteres!',
             'is_unique' => 'Esse {field} já foi cadastrado, use outro!',
-            'alpha' => 'Esse campo só aceita letras!',
             )
         );
 	}

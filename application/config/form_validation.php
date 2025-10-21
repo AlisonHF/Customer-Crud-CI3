@@ -42,7 +42,7 @@ $config = array(
         array(
             'field' => 'cidade',
             'label' => 'Cidade',
-            'rules' => 'required|min_length[5]|max_length[100]|alpha'
+            'rules' => 'required|min_length[5]|max_length[100]'
         ),
 
         array(
@@ -93,7 +93,7 @@ $config = array(
         array(
             'field' => 'cidade',
             'label' => 'Cidade',
-            'rules' => 'required|min_length[5]|max_length[100]|alpha'
+            'rules' => 'required|min_length[5]|max_length[100]'
         ),
 
         array(

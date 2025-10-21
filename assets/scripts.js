@@ -12,7 +12,6 @@ function searchCep() {
 
 	let regex = /^\d+$/; // Somente numeros
 
-	// Verifica se o campo digitado é valido
 	if (!cepInput) {
 		resultadoDiv.html("Digite um CEP!");
 		return null;
@@ -97,26 +96,41 @@ function searchCnpj() {
 		});
 }
 
-// Realizar a exclusão das máscaras ao enviar o formulário
 function applyMasks() {
-	$("#telefone").mask("(00) 00000-0000");
-	$("#cep").mask("00000-000");
+	let telefone = $("#telefone");
+	let cpf_cnpj = $("#cpf_cnpj");
+	let cep = $("#cep");
 
-	let options = {
-		onKeyPress: function (cpf_cnpj, e, field, options) {
-			let masks = ["000.000.000-009", "00.000.000/0000-00"];
-			let mask = cpf_cnpj.length > 14 ? masks[1] : masks[0];
-			field.mask(mask, options);
-		},
-	};
+	telefone.on("blur", () => {
+		if (telefone.val().trim().length == 10) {
+			telefone.mask("(00) 0000-0000");
+		} else if (telefone.val().trim().length == 11) {
+			telefone.mask("(00) 00000-0000");
+		}
+	});
 
-	$("#cpf_cnpj").mask("000.000.000-009", options);
+	telefone.on("focus", () => {
+		telefone.unmask();
+	});
 
-	$("#cpf_cnpj").on("paste", function () {
-		var input = $(this);
-		setTimeout(function () {
-			input.trigger("input"); // força atualização da máscara
-		}, 100);
+	cpf_cnpj.on("blur", () => {
+		if (cpf_cnpj.val().trim().length === 11) {
+			cpf_cnpj.mask("000.000.000-00");
+		} else if (cpf_cnpj.val().trim().length == 14) {
+			cpf_cnpj.mask("00.000.000/0000-00");
+		}
+	});
+
+	cpf_cnpj.on("focus", () => {
+		cpf_cnpj.unmask();
+	});
+
+	cep.on("blur", () => {
+		cep.mask("00000-000");
+	});
+
+	cep.on("focus", () => {
+		cep.unmask();
 	});
 }
 

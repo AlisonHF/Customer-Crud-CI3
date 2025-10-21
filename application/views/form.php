@@ -11,7 +11,7 @@
     </div>
 
     <label class="form-label">CPF/CNPJ:</label>
-    <input class="form-control" type="text" id="cpf_cnpj" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : set_value('cpf_cnpj') ?>" onblur="searchCnpj()" maxlength="22">
+    <input class="form-control" type="text" id="cpf_cnpj" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : set_value('cpf_cnpj') ?>" onblur="searchCnpj()" maxlength="20">
     <div class="form-invalid" id="div-error-cnpj">
         <?php echo form_error('cpf_cnpj') ?>
         <?php if(isset($data['error_cpf_cnpj'])){
@@ -27,13 +27,13 @@
     </div>
 
     <label class="form-label">Telefone</label>
-    <input class="form-control" type="text" id="telefone" name="telefone" value="<?= isset($cliente) ? $cliente->telefone : set_value('telefone') ?>" maxlength="19" onkeyup="">
+    <input class="form-control" type="text" id="telefone" name="telefone" value="<?= isset($cliente) ? $cliente->telefone : set_value('telefone') ?>" maxlength="20">
     <div class="form-invalid">
         <?php echo form_error('telefone') ?>
     </div>
 
     <label class="form-label">CEP</label>
-    <input class="form-control" type="text" id="cep" name="cep" value="<?= isset($cliente) ? $cliente->cep : set_value('cep') ?>" onblur="searchCep()" maxlength="8" onkeyup="">
+    <input class="form-control" type="text" id="cep" name="cep" value="<?= isset($cliente) ? $cliente->cep : set_value('cep') ?>" onblur="searchCep()" maxlength="8">
     <div class="form-invalid" id="div-error-cep">
         <?php echo form_error('cep') ?>
     </div>
