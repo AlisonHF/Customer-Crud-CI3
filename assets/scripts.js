@@ -87,7 +87,7 @@ function searchCnpj() {
 			}
 			// Caso os dados sejam válidos
 			razaoSocialInput.val(data.razao_social);
-			telefoneInput.val(data.ddd_telefone_1);
+			telefoneInput.val(data.ddd_telefone_1).trigger("input");
 			console.log(data);
 		})
 		.catch((error) => {
@@ -98,8 +98,27 @@ function searchCnpj() {
 
 function applyMasks() {
 	let telefone = $("#telefone");
-	let cpf_cnpj = $("#cpf_cnpj");
+	let telefoneValue = telefone.val();
+	let cpfCnpj = $("#cpf_cnpj");
+	let cpfCnpjValue = cpfCnpj.val();
 	let cep = $("#cep");
+	let cepValue = cep.val();
+
+	if (telefoneValue.length > 1 && telefoneValue.length <= 10) {
+		telefone.mask("(00) 0000-0000");
+	} else if (telefoneValue.length > 1 && telefoneValue.length <= 11) {
+		telefone.mask("(00) 00000-0000");
+	}
+
+	if (cpfCnpjValue.length > 1 && cpfCnpjValue.length <= 11) {
+		cpfCnpj.mask("000.000.000-00");
+	} else if (cpfCnpjValue.length > 1 && cpfCnpjValue.length <= 14) {
+		cpfCnpj.mask("00.000.000/0000-00");
+	}
+
+	if (cepValue.length > 1 && cepValue.length <= 8) {
+		cep.mask("00000-000");
+	}
 
 	telefone.on("blur", () => {
 		if (telefone.val().trim().length == 10) {
@@ -111,18 +130,20 @@ function applyMasks() {
 
 	telefone.on("focus", () => {
 		telefone.unmask();
+		telefone.attr("maxlength", 11);
 	});
 
-	cpf_cnpj.on("blur", () => {
-		if (cpf_cnpj.val().trim().length === 11) {
-			cpf_cnpj.mask("000.000.000-00");
-		} else if (cpf_cnpj.val().trim().length == 14) {
-			cpf_cnpj.mask("00.000.000/0000-00");
+	cpfCnpj.on("blur", () => {
+		if (cpfCnpj.val().trim().length === 11) {
+			cpfCnpj.mask("000.000.000-00");
+		} else if (cpfCnpj.val().trim().length == 14) {
+			cpfCnpj.mask("00.000.000/0000-00");
 		}
 	});
 
-	cpf_cnpj.on("focus", () => {
-		cpf_cnpj.unmask();
+	cpfCnpj.on("focus", () => {
+		cpfCnpj.unmask();
+		cpfCnpj.attr("maxlength", 14);
 	});
 
 	cep.on("blur", () => {
@@ -131,15 +152,23 @@ function applyMasks() {
 
 	cep.on("focus", () => {
 		cep.unmask();
+		cep.attr("maxlength", 8);
+	});
+
+	telefone.on("input", () => {
+		if (telefone.val().length > 1 && telefone.val().length <= 10) {
+			telefone.mask("(00) 0000-0000");
+		} else if (telefone.val().length > 1 && telefone.val().length <= 11) {
+			telefone.mask("(00) 00000-0000");
+		}
+		console.log(telefone.val());
 	});
 }
 
 function removeMasks() {
-	$(document).ready(() => {
-		$("#form").submit(() => {
-			$("#cpf_cnpj").val($("#cpf_cnpj").cleanVal());
-			$("#telefone").val($("#telefone").cleanVal());
-			$("#cep").val($("#cep").cleanVal());
-		});
+	$("#form").submit(() => {
+		$("#cpf_cnpj").val($("#cpf_cnpj").cleanVal());
+		$("#telefone").val($("#telefone").cleanVal());
+		$("#cep").val($("#cep").cleanVal());
 	});
 }

@@ -11,7 +11,7 @@
     </div>
 
     <label class="form-label">CPF/CNPJ:</label>
-    <input class="form-control" type="text" id="cpf_cnpj" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : set_value('cpf_cnpj') ?>" onblur="searchCnpj()" maxlength="20">
+    <input class="form-control" type="text" id="cpf_cnpj" name="cpf_cnpj" value="<?= isset($cliente) ? $cliente->cpf_cnpj : set_value('cpf_cnpj') ?>" onblur="searchCnpj()" maxlength="14">
     <div class="form-invalid" id="div-error-cnpj">
         <?php echo form_error('cpf_cnpj') ?>
         <?php if(isset($data['error_cpf_cnpj'])){
@@ -27,7 +27,7 @@
     </div>
 
     <label class="form-label">Telefone</label>
-    <input class="form-control" type="text" id="telefone" name="telefone" value="<?= isset($cliente) ? $cliente->telefone : set_value('telefone') ?>" maxlength="20">
+    <input class="form-control" type="text" id="telefone" name="telefone" value="<?= isset($cliente) ? $cliente->telefone : set_value('telefone') ?>" maxlength="11">
     <div class="form-invalid">
         <?php echo form_error('telefone') ?>
     </div>
@@ -64,7 +64,6 @@
         applyMasks();
         removeMasks();
     })
-    
 </script>
 
 <a href="/Cliente" class="mt-3 mb-3 btn btn-primary" id="link-list">Voltar a listagem</a>
