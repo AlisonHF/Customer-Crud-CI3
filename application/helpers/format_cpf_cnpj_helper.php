@@ -7,8 +7,7 @@
  */
 function format_cpf_cnpj(string $cpf_cnpj)
 {
-    if (strlen($cpf_cnpj) === 11)
-    {
+    if (strlen($cpf_cnpj) === 11) {
         $formatted_cpf_cnpj = substr_replace($cpf_cnpj, '.', 3, 0);
         $formatted_cpf_cnpj = substr_replace($formatted_cpf_cnpj, '.', 7, 0);
         $formatted_cpf_cnpj = substr_replace($formatted_cpf_cnpj, '-', 11, 0);

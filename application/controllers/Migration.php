@@ -2,9 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Controller para chamar as migrations
+ * Controller para chamar as migrations caso necessário
  */
-class Migration extends CI_Controller {
+class Migration extends CI_Controller
+{
 
     public function __construct()
     {
@@ -14,13 +15,9 @@ class Migration extends CI_Controller {
 
     public function index()
     {
-        if ($this->migration->latest() === FALSE)
-        {
+        if ($this->migration->latest() === FALSE) {
             show_error($this->migration->error_string());
-        }
-
-        else
-        {
+        } else {
             echo 'Migrations executadas com sucesso!';
         }
     }

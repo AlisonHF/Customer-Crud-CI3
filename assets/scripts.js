@@ -1,3 +1,4 @@
+// API Busca CEP
 function searchCep() {
 	// Variaveis
 	let cepInput = $("#cep").val();
@@ -50,6 +51,7 @@ function searchCep() {
 		});
 }
 
+// API Busca CNPJ
 function searchCnpj() {
 	let cnpjInput = $("#cpf_cnpj")
 		.val()
@@ -96,6 +98,7 @@ function searchCnpj() {
 		});
 }
 
+// Aplica mascaras nos campos do formulário
 function applyMasks() {
 	let telefone = $("#telefone");
 	let telefoneValue = telefone.val();
@@ -104,20 +107,11 @@ function applyMasks() {
 	let cep = $("#cep");
 	let cepValue = cep.val();
 
+	// Telefone
 	if (telefoneValue.length > 1 && telefoneValue.length <= 10) {
 		telefone.mask("(00) 0000-0000");
 	} else if (telefoneValue.length > 1 && telefoneValue.length <= 11) {
 		telefone.mask("(00) 00000-0000");
-	}
-
-	if (cpfCnpjValue.length > 1 && cpfCnpjValue.length <= 11) {
-		cpfCnpj.mask("000.000.000-00");
-	} else if (cpfCnpjValue.length > 1 && cpfCnpjValue.length <= 14) {
-		cpfCnpj.mask("00.000.000/0000-00");
-	}
-
-	if (cepValue.length > 1 && cepValue.length <= 8) {
-		cep.mask("00000-000");
 	}
 
 	telefone.on("blur", () => {
@@ -133,6 +127,13 @@ function applyMasks() {
 		telefone.attr("maxlength", 11);
 	});
 
+	// CPF - CNPJ
+	if (cpfCnpjValue.length > 1 && cpfCnpjValue.length <= 11) {
+		cpfCnpj.mask("000.000.000-00");
+	} else if (cpfCnpjValue.length > 1 && cpfCnpjValue.length <= 14) {
+		cpfCnpj.mask("00.000.000/0000-00");
+	}
+
 	cpfCnpj.on("blur", () => {
 		if (cpfCnpj.val().trim().length === 11) {
 			cpfCnpj.mask("000.000.000-00");
@@ -146,6 +147,11 @@ function applyMasks() {
 		cpfCnpj.attr("maxlength", 14);
 	});
 
+	// CEP
+	if (cepValue.length > 1 && cepValue.length <= 8) {
+		cep.mask("00000-000");
+	}
+
 	cep.on("blur", () => {
 		cep.mask("00000-000");
 	});
@@ -154,17 +160,9 @@ function applyMasks() {
 		cep.unmask();
 		cep.attr("maxlength", 8);
 	});
-
-	telefone.on("input", () => {
-		if (telefone.val().length > 1 && telefone.val().length <= 10) {
-			telefone.mask("(00) 0000-0000");
-		} else if (telefone.val().length > 1 && telefone.val().length <= 11) {
-			telefone.mask("(00) 00000-0000");
-		}
-		console.log(telefone.val());
-	});
 }
 
+// Retira as mascaras dos campos para enviar os valores ao bd
 function removeMasks() {
 	$("#form").submit(() => {
 		$("#cpf_cnpj").val($("#cpf_cnpj").cleanVal());

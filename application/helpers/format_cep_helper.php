@@ -8,6 +8,5 @@
 function format_cep(string $cep)
 {
     $formatted_cep = substr_replace($cep, '-', 5, 0);
-
     return $formatted_cep;
 }
