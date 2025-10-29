@@ -10,7 +10,7 @@ class Cliente extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('form_validation');
-		$this->load->model('Cliente_model', 'ClienteModel');
+		$this->load->model('ClienteModel');
         $this->form_validation->set_message(array(
             'min_length'    => 'O campo {field} precisa de {param} ou mais caracteres!',
             'max_length'    => 'O campo {field} recebe o máximo de {param} caracteres!',
